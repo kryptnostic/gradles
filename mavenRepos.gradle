@@ -13,13 +13,21 @@ repositories {
   maven {
     url 'http://artifactory.krypt.int/artifactory/libs-release-local/'
   }
-  
+
   // Hit all the public stuff
   maven {
     url 'http://artifactory.krypt.int/artifactory/remote-repos/'
   }
 
-  //Hit the rethink driver madness
+  // Hit sonatype snapshots
+  maven {
+    url 'https://oss.sonatype.org/content/repositories/snapshots'
+  }
+
+  // Hit mavencentral
+  mavenCentral()
+
+  //Hit the rethink driver 
   maven {
     url 'https://raw.github.com/dkhenry/rethinkjava/mvn-repo'
   }
