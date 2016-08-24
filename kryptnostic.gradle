@@ -39,8 +39,8 @@ ext.fullVersion = getFullVersion()
 tasks.withType(Tar){
   compression = Compression.GZIP
 }
-apply from: "http://api.krypt.int/gradle/mavenRepos.gradle"
-apply from: "http://api.krypt.int/gradle/publish.gradle"
+apply from: "https://raw.githubusercontent.com/kryptnostic/gradles/master/mavenRepos.gradle"
+apply from: "https://raw.githubusercontent.com/kryptnostic/gradles/master/publish.gradle"
 
 task wrapper(type: Wrapper) {
   gradleVersion = '2.14'
