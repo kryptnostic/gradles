@@ -1,0 +1,26 @@
+apply plugin: "maven"
+
+repositories {
+  // Hit the local maven repo
+  mavenLocal()
+
+  //Hit our internal stuff
+  maven {
+    url 'http://artifactory.krypt.int/artifactory/libs-snapshot/'
+  }
+
+  //Hit our release stuff
+  maven {
+    url 'http://artifactory.krypt.int/artifactory/libs-release-local/'
+  }
+  
+  // Hit all the public stuff
+  maven {
+    url 'http://artifactory.krypt.int/artifactory/remote-repos/'
+  }
+
+  //Hit the rethink driver madness
+  maven {
+    url 'https://raw.github.com/dkhenry/rethinkjava/mvn-repo'
+  }
+}

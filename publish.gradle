@@ -1,0 +1,65 @@
+ext.snapshotUrl = "http://artifactory.krypt.int/artifactory/libs-snapshot-local"
+ext.releaseUrl = "http://artifactory.krypt.int/artifactory/libs-release-local"
+
+def stdout = new ByteArrayOutputStream()
+exec {
+    commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+    standardOutput = stdout
+}
+def branch=stdout.toString().trim();
+
+if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
+    apply plugin: "maven-publish"
+    apply plugin: "signing"
+
+    if ( branch.equals("develop") || branch.contains("release/") ) {
+        publishing {
+            repositories {
+                maven { 
+                    url snapshotUrl
+                    credentials {
+                        username = "$System.env.bamboo_ARTIFACTORY_USERNAME"
+                        password = "$System.env.bamboo_ARTIFACTORY_PASSWORD"
+                    }
+                }
+            }
+            publications {
+	            mavenJava(MavenPublication) {
+	                from components.java
+	                //artifact ('README.md') {
+	                 //   classifier = 'README'
+	                  //  extension  = 'md'
+	                //}
+
+	                artifact javadocJar
+	                artifact sourcesJar
+	            }
+	        }
+        }
+    } else if ( branch.equals("master") ) {
+
+        publishing {
+            repositories {
+                maven { 
+                    url releaseUrl
+                    credentials {
+                        username = "$System.env.bamboo_ARTIFACTORY_USERNAME"
+                        password = "$System.env.bamboo_ARTIFACTORY_PASSWORD"
+                    }
+                }
+            }
+            publications {
+	            mavenJava(MavenPublication) {
+	                from components.java
+	                //artifact ('README.md') {
+	                    //classifier = 'README'
+	                    //extension  = 'md'
+	                //}
+
+	                artifact javadocJar
+	                artifact sourcesJar
+	            }
+	        }
+        }
+    }
+}  

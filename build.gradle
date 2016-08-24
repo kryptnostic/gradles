@@ -1,0 +1,8 @@
+ext.projectName='sharedGradle'
+
+apply plugin: 'distribution'
+apply from: 'sharedDeployment.gradle'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.14'
+}
