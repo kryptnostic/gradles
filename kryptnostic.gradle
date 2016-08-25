@@ -53,7 +53,7 @@ task wrapper(type: Wrapper) {
 
 afterEvaluate {
   copy {
-    if ( ext.projectName ) {
+    if ( project.hasProperty('projectName') ) {
       logger.info "Copying hooks for ${getProjectDir()} from ${projectName}/hooks to ${projectName}/.git/hooks"
     }
     from ("${getProjectDir()}/hooks")
