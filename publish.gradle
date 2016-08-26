@@ -33,6 +33,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 
 	                artifact javadocJar
 	                artifact sourcesJar
+	                artifact testJar
 	            }
 	        }
         }
@@ -58,6 +59,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 
 	                artifact javadocJar
 	                artifact sourcesJar
+	                artifact testJar
 	            }
 	        }
         }
