@@ -1,7 +1,5 @@
 ext.projectName='sharedGradle'
 
-apply plugin: 'distribution'
-
 task wrapper(type: Wrapper) {
   gradleVersion = '2.14'
 }
