@@ -8,6 +8,32 @@ exec {
 }
 def branch=stdout.toString().trim();
 
+task sourcesJar(type : Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task testJar(type: Jar, dependsOn: testClasses) {
+    classifier = 'tests'
+    from sourceSets.test.output
+}
+
+configurations {
+    tests
+      published.extendsFrom tests, archives
+}
+
+artifacts {
+	archives sourcesJar
+    archives jar
+    archives javadocJar
+	tests testJar
+}
 if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
     apply plugin: "maven-publish"
     apply plugin: "signing"
