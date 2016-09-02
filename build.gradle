@@ -1,5 +1,11 @@
-ext.projectName='sharedGradle'
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '2.14'
+plugins {
+    id 'com.palantir.docker' version '0.8.0'
+    id 'application'
 }
+
+ext.projectName = 'sharedGradle'
+
+mainClassName = 'none'
+
+apply from: "./kryptnostic.gradle"
+apply from: "./docker.gradle"
