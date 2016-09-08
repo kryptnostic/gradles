@@ -80,7 +80,7 @@ configurations.all {
  * Kryptnostic versions
  **/
 ext.billing_version='0.1.0-SNAPSHOT'
-ext.conductor_client_version='0.0.1-SNAPSHOT'
+ext.conductor_client_version='0.0.2-SNAPSHOT'
 ext.fhe_core_version='0.1.2-SNAPSHOT'
 ext.heracles_version='4.0.0-SNAPSHOT'
 ext.hz_server_version='0.1.0-SNAPSHOT'
