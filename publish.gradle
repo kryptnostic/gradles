@@ -1,12 +1,16 @@
 ext.snapshotUrl = "http://artifactory.krypt.int/artifactory/libs-snapshot-local"
 ext.releaseUrl = "http://artifactory.krypt.int/artifactory/libs-release-local"
 
-def stdout = new ByteArrayOutputStream()
-exec {
-    commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
-    standardOutput = stdout
+def branch = System.getenv("bamboo_repository_branch_name")
+
+if( branch == null || branch == "" ) {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+        standardOutput = stdout
+    }
+    branch=stdout.toString().trim();
 }
-def branch=stdout.toString().trim();
 
 task sourcesJar(type : Jar) {
     classifier = 'sources'
