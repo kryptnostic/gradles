@@ -1,10 +1,10 @@
 if (!ext.hasProperty('environment') ){
-  ext.environment=''
+  ext.environment=" "
 }
 
 docker {
     name "registry.krypt.int:5000/kryptnostic/${projectName}:${version}"
     dependsOn tasks.distTar
     files 'src/main/resources/rhizome.yaml', 'src/main/resources/rhizome.yaml.prod'
-    buildArgs([IMG_VER: "${version}", IMAGE_NAME: "${projectName}", ENVIRONMENT: "${environment}"])
+    buildArgs([IMG_VER: "${version}", IMAGE_NAME: "${projectName}", ENV: "${environment}"])
 }
