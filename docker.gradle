@@ -1,3 +1,6 @@
+if !ext.hasProperty('environment')
+  ext.environment=''
+
 docker {
     name "registry.krypt.int:5000/kryptnostic/${projectName}:${version}"
     dependsOn tasks.distTar
