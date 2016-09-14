@@ -1,5 +1,6 @@
 docker {
     name "registry.krypt.int:5000/kryptnostic/${projectName}:${version}"
     dependsOn tasks.distTar
-    buildArgs([IMG_VER: "${version}", IMAGE_NAME: "${projectName}"])
+    files 'src/main/resources/rhizome.yml', 'src/main/resources/rhizome.yml.prod'
+    buildArgs([IMG_VER: "${version}", IMAGE_NAME: "${projectName}", ENVIRONMENT: "${environment}"])
 }
