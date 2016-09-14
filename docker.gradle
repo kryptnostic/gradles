@@ -1,5 +1,5 @@
-if ( !ext.has('environment') ){
-  ext.environment=" "
+if ( !ext.has('rhizome') ){
+  ext.rhizome=" "
 }
 
 docker {
