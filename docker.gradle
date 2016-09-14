@@ -1,4 +1,4 @@
-if (!ext.hasProperty('environment') ){
+if ( !ext.has('environment') ){
   ext.environment=" "
 }
 
