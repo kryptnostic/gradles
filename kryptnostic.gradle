@@ -106,7 +106,8 @@ ext.datastore_version='0.0.0-SNAPSHOT'
  * External versions
  **/
 ext.apache_httpcomponents_version='4.4'
-ext.auth0_version='0.0.3'
+ext.auth0_version='0.3.0'
+ext.auth0_spring_version='0.0.3'
 ext.cassandra_client_utils_version='3.5'
 ext.cassandra_driver_version='3.1.0'
 ext.commons_codec_version='1.10'
