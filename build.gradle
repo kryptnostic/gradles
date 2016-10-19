@@ -8,4 +8,3 @@ ext.projectName = 'sharedGradle'
 mainClassName = 'none'
 
 apply from: "./kryptnostic.gradle"
-apply from: "./docker.gradle"
