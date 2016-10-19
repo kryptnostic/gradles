@@ -1,5 +1,7 @@
 ext.snapshotUrl = "http://artifactory.krypt.int/artifactory/libs-snapshot-local"
 ext.releaseUrl = "http://artifactory.krypt.int/artifactory/libs-release-local"
+ext.sonatypeMasterUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapshots"
 
 def branch = System.getenv("bamboo_repository_branch_name")
 
@@ -38,6 +40,7 @@ artifacts {
     archives javadocJar
 	tests testJar
 }
+
 if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
     apply plugin: "maven-publish"
     apply plugin: "signing"
@@ -45,6 +48,13 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
     if ( branch.equals("develop") || branch.contains("release/") ) {
         publishing {
             repositories {
+                maven {
+                    url sonatypeSnapshotUrl
+                    credentials {
+                        username = "$System.env.bamboo_SONATYPE_USERNAME"
+                        password = "$System.env.bamboo_SONATYPE_PASSWORD"
+                    }
+                }
                 maven { 
                     url snapshotUrl
                     credentials {
@@ -71,6 +81,13 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 
         publishing {
             repositories {
+                maven {
+                    url sonatypeMasterUrl
+                    credentials {
+                        username = "$System.env.bamboo_SONATYPE_USERNAME"
+                        password = "$System.env.bamboo_SONATYPE_PASSWORD"
+                    }
+                }
                 maven { 
                     url releaseUrl
                     credentials {

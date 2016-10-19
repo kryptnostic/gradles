@@ -49,8 +49,6 @@ task wrapper(type: Wrapper) {
 /*
  * Allow maintaing shared client git hooks in the repository. At some point should consider making task
  * or making it depend on eclipse  so it doesn't run everytime you run gradle
- */
-
 afterEvaluate {
   copy {
     if ( project.hasProperty('projectName') ) {
@@ -60,6 +58,7 @@ afterEvaluate {
     into "${getProjectDir()}/.git/hooks"
   }
 }
+*/
 
 /**
  * To make use of this, mark a dependency as `changing: true` if it is a snapshot dependency
