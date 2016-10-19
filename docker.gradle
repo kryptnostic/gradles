@@ -5,7 +5,6 @@ if ( !ext.has('rhizome') ){
 docker {
     name "kryptnostic/${projectName}:latest"
     dependsOn tasks.distTar
-    dockerfile 'Dockerfile.local'
     files 'src/main/resources/rhizome.yaml', 'src/main/resources/rhizome.yaml.prod'
     buildArgs([IMG_VER: "${version}", IMAGE_NAME: "${projectName}", ENV: "${rhizome}"])
 }
