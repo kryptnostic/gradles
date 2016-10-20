@@ -14,7 +14,7 @@ if( branch == null || branch == "" ) {
     branch=stdout.toString().trim();
 }
 
-task shadow_Jar(type: ShadowJar) {
+task shadow_Jar(type: Jar) {
     classifier = 'all'
     from sourceSets.main.allSource
 }
