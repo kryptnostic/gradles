@@ -44,7 +44,7 @@ artifacts {
     archives jar
     archives javadocJar
 	tests testJar
-    archives shadowJar
+    archives shadow_jar
 }
 
 if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
@@ -81,9 +81,9 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact sourcesJar
 	                artifact testJar
 	            }
-                mavenJava(MavenPublication) {
-                    from components.shadow
-                    artifact shadowJar
+                mavenJava(MavenPublication){
+                    from componets.shadow
+                    artifact shadow_jar
                 }
 	        }
         }
@@ -118,9 +118,9 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact sourcesJar
 	                artifact testJar
 	            }
-                mavenJava(MavenPublication) {
-                    from components.shadow
-                    artifact shadowJar
+                mavenJava(MavenPublication){
+                    from componets.shadow
+                    artifact shadow_jar
                 }
 	        }
         }
