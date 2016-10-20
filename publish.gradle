@@ -31,19 +31,32 @@ task testJar(type: Jar, dependsOn: testClasses) {
 
 configurations {
     tests
-      published.extendsFrom tests, archives
+        published.extendsFrom tests, archives
 }
 
 artifacts {
-	archives sourcesJar
+    archives sourcesJar
     archives jar
     archives javadocJar
-	tests testJar
+    tests testJar
 }
 
 if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
+    apply plugin: "maven"
     apply plugin: "maven-publish"
     apply plugin: "signing"
+
+    ext."signing.keyId" = 'FDEB5A45'
+    ext."signing.secretKeyRingFile" = "$System.env.bamboo_JAR_SIGNING_KEYRING"
+    ext."signing.password" = "$System.env.bamboo_JAR_SIGNING_PASSWORD"
+    configurations {
+        pom
+    }
+
+    signing {
+        sign configurations.archives
+        sign configurations.pom
+    }
 
     if ( branch.equals("develop") || branch.contains("release/") ) {
         publishing {
@@ -55,7 +68,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                         password = "$System.env.bamboo_SONATYPE_PASSWORD"
                     }
                 }
-                maven { 
+                maven {
                     url snapshotUrl
                     credentials {
                         username = "$System.env.bamboo_ARTIFACTORY_USERNAME"
@@ -64,21 +77,19 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }
             }
             publications {
-	            mavenJava(MavenPublication) {
-	                from components.java
-	                //artifact ('README.md') {
-	                 //   classifier = 'README'
-	                  //  extension  = 'md'
-	                //}
-
-	                artifact javadocJar
-	                artifact sourcesJar
-	                artifact testJar
-	            }
-	        }
+                mavenJava(MavenPublication) {
+                    from components.java
+                    //artifact ('README.md') {
+                     //   classifier = 'README'
+                      //  extension  = 'md'
+                    //}
+                    artifact javadocJar
+                    artifact sourcesJar
+                    artifact testJar
+                }
+            }
         }
     } else if ( branch.equals("master") ) {
-
         publishing {
             repositories {
                 maven {
@@ -88,7 +99,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                         password = "$System.env.bamboo_SONATYPE_PASSWORD"
                     }
                 }
-                maven { 
+                maven {
                     url releaseUrl
                     credentials {
                         username = "$System.env.bamboo_ARTIFACTORY_USERNAME"
@@ -97,18 +108,17 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }
             }
             publications {
-	            mavenJava(MavenPublication) {
-	                from components.java
-	                //artifact ('README.md') {
-	                    //classifier = 'README'
-	                    //extension  = 'md'
-	                //}
-
-	                artifact javadocJar
-	                artifact sourcesJar
-	                artifact testJar
-	            }
-	        }
+                mavenJava(MavenPublication) {
+                    from components.java
+                    //artifact ('README.md') {
+                     //   classifier = 'README'
+                      //  extension  = 'md'
+                    //}
+                    artifact javadocJar
+                    artifact sourcesJar
+                    artifact testJar
+                }
+            }
         }
     }
-}  
+}
