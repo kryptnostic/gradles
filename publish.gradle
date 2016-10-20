@@ -93,8 +93,8 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                         name ext.projectName
                         licenses {
                             license {
-                                name 'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License'
-                                url 'https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode'
+                                name 'The Apache License, Version 2.0'
+                                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                                 distribution 'repo'
                             }
                         }
@@ -137,8 +137,8 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                         name ext.projectName
                         licenses {
                             license {
-                                name 'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License'
-                                url 'https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode'
+                                name 'The Apache License, Version 2.0'
+                                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                                 distribution 'repo'
                             }
                         }
