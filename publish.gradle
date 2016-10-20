@@ -29,6 +29,11 @@ task testJar(type: Jar, dependsOn: testClasses) {
     from sourceSets.test.output
 }
 
+task shadowJar(type: Jar) {
+    classifier = 'shadow'
+    from sourceSets.main.allSource
+}
+
 configurations {
     tests
       published.extendsFrom tests, archives
@@ -39,6 +44,7 @@ artifacts {
     archives jar
     archives javadocJar
 	tests testJar
+    archives shadowJar
 }
 
 if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
@@ -75,6 +81,10 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact sourcesJar
 	                artifact testJar
 	            }
+                mavenJava(MavenPublication) {
+                    from components.shadow
+                    artifact shadowJar
+                }
 	        }
         }
     } else if ( branch.equals("master") ) {
@@ -108,6 +118,10 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact sourcesJar
 	                artifact testJar
 	            }
+                mavenJava(MavenPublication) {
+                    from components.shadow
+                    artifact shadowJar
+                }
 	        }
         }
     }
