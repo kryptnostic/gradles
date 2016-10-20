@@ -1,0 +1,128 @@
+ext.snapshotUrl = "http://artifactory.krypt.int/artifactory/libs-snapshot-local"
+ext.releaseUrl = "http://artifactory.krypt.int/artifactory/libs-release-local"
+ext.sonatypeMasterUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+
+def branch = System.getenv("bamboo_repository_branch_name")
+
+if( branch == null || branch == "" ) {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+        standardOutput = stdout
+    }
+    branch=stdout.toString().trim();
+}
+
+task sourcesJar(type : Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task testJar(type: Jar, dependsOn: testClasses) {
+    classifier = 'tests'
+    from sourceSets.test.output
+}
+
+task shadow_Jar(type: ShadowJar) {
+    classifier = 'all'
+    from sourceSets.main.allSource
+}
+
+configurations {
+    tests
+    published.extendsFrom tests, archives
+}
+
+artifacts {
+    archives sourcesJar
+    archives jar
+    archives javadocJar
+    tests testJar
+    archives shadow_Jar
+}
+
+if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
+    apply plugin: "maven-publish"
+    apply plugin: "signing"
+
+    if ( branch.equals("develop") || branch.contains("release/") ) {
+        publishing {
+            repositories {
+                maven {
+                    url sonatypeSnapshotUrl
+                    credentials {
+                        username = "$System.env.bamboo_SONATYPE_USERNAME"
+                        password = "$System.env.bamboo_SONATYPE_PASSWORD"
+                    }
+                }
+                maven {
+                    url snapshotUrl
+                    credentials {
+                        username = "$System.env.bamboo_ARTIFACTORY_USERNAME"
+                        password = "$System.env.bamboo_ARTIFACTORY_PASSWORD"
+                    }
+                }
+            }
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.java
+                    //artifact ('README.md') {
+                    //   classifier = 'README'
+                    //  extension  = 'md'
+                    //}
+
+                    artifact javadocJar
+                    artifact sourcesJar
+                    artifact testJar
+                }
+                mavenJava(MavenPublication) {
+                    from components.shadow
+                    artifact shadow_Jar
+                }
+            }
+        }
+    } else if ( branch.equals("master") ) {
+
+        publishing {
+            repositories {
+                maven {
+                    url sonatypeMasterUrl
+                    credentials {
+                        username = "$System.env.bamboo_SONATYPE_USERNAME"
+                        password = "$System.env.bamboo_SONATYPE_PASSWORD"
+                    }
+                }
+                maven {
+                    url releaseUrl
+                    credentials {
+                        username = "$System.env.bamboo_ARTIFACTORY_USERNAME"
+                        password = "$System.env.bamboo_ARTIFACTORY_PASSWORD"
+                    }
+                }
+            }
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.java
+                    //artifact ('README.md') {
+                    //classifier = 'README'
+                    //extension  = 'md'
+                    //}
+
+                    artifact javadocJar
+                    artifact sourcesJar
+                    artifact testJar
+                }
+                mavenJava(MavenPublication) {
+                    from components.shadow
+                    artifact shadow_Jar
+                }
+            }
+        }
+    }
+}
