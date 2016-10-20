@@ -29,7 +29,7 @@ task testJar(type: Jar, dependsOn: testClasses) {
     from sourceSets.test.output
 }
 
-task shadowJar(type: Jar) {
+task shadow_jar(type: Jar) {
     classifier = 'shadow'
     from sourceSets.main.allSource
 }
