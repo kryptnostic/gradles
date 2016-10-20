@@ -14,36 +14,16 @@ if( branch == null || branch == "" ) {
     branch=stdout.toString().trim();
 }
 
-task sourcesJar(type : Jar) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-task testJar(type: Jar, dependsOn: testClasses) {
-    classifier = 'tests'
-    from sourceSets.test.output
-}
-
 task shadow_Jar(type: ShadowJar) {
     classifier = 'all'
     from sourceSets.main.allSource
 }
 
 configurations {
-    tests
-    published.extendsFrom tests, archives
+    published.extendsFrom archives
 }
 
 artifacts {
-    archives sourcesJar
-    archives jar
-    archives javadocJar
-    tests testJar
     archives shadow_Jar
 }
 
@@ -71,17 +51,6 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
             }
             publications {
                 mavenJava(MavenPublication) {
-                    from components.java
-                    //artifact ('README.md') {
-                    //   classifier = 'README'
-                    //  extension  = 'md'
-                    //}
-
-                    artifact javadocJar
-                    artifact sourcesJar
-                    artifact testJar
-                }
-                mavenJava(MavenPublication) {
                     from components.shadow
                     artifact shadow_Jar
                 }
@@ -107,17 +76,6 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }
             }
             publications {
-                mavenJava(MavenPublication) {
-                    from components.java
-                    //artifact ('README.md') {
-                    //classifier = 'README'
-                    //extension  = 'md'
-                    //}
-
-                    artifact javadocJar
-                    artifact sourcesJar
-                    artifact testJar
-                }
                 mavenJava(MavenPublication) {
                     from components.shadow
                     artifact shadow_Jar
