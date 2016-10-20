@@ -87,6 +87,19 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                     artifact sourcesJar
                     artifact testJar
                 }
+                pom.withXml {
+                    asNode().children().last() + {
+                        resolveStrategy = Closure.DELEGATE_FIRST
+                        name ext.projectName
+                        licenses {
+                            license {
+                                name 'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License'
+                                url 'https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode'
+                                distribution 'repo'
+                            }
+                        }
+                    }
+                }
             }
         }
     } else if ( branch.equals("master") ) {
@@ -117,6 +130,19 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                     artifact javadocJar
                     artifact sourcesJar
                     artifact testJar
+                }
+                pom.withXml {
+                    asNode().children().last() + {
+                        resolveStrategy = Closure.DELEGATE_FIRST
+                        name ext.projectName
+                        licenses {
+                            license {
+                                name 'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License'
+                                url 'https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode'
+                                distribution 'repo'
+                            }
+                        }
+                    }
                 }
             }
         }
