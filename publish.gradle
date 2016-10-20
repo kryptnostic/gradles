@@ -42,7 +42,6 @@ artifacts {
 }
 
 if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
-    apply plugin: "maven"
     apply plugin: "maven-publish"
     apply plugin: "signing"
 
