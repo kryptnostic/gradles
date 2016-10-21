@@ -14,19 +14,6 @@ if( branch == null || branch == "" ) {
     branch=stdout.toString().trim();
 }
 
-task shadow_Jar(type: Jar) {
-    classifier = 'all'
-    from sourceSets.main.allSource
-}
-
-configurations {
-    published.extendsFrom archives
-}
-
-artifacts {
-    archives shadow_Jar
-}
-
 if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
     apply plugin: "maven-publish"
     apply plugin: "signing"
