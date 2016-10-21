@@ -30,6 +30,7 @@ artifacts {
 if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
     apply plugin: "maven-publish"
     apply plugin: "signing"
+    apply plugin: 'com.github.johnrengelman.shadow'
 
     if ( branch.equals("develop") || branch.contains("release/") ) {
         publishing {
@@ -50,9 +51,8 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }
             }
             publications {
-                mavenJava(MavenPublication) {
+                shadow(MavenPublication) {
                     from components.shadow
-                    artifact shadow_Jar
                 }
             }
         }
@@ -76,9 +76,8 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }
             }
             publications {
-                mavenJava(MavenPublication) {
+                shadow(MavenPublication) {
                     from components.shadow
-                    artifact shadow_Jar
                 }
             }
         }
