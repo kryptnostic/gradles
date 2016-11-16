@@ -102,6 +102,7 @@ ext.services_version='5.0.1-SNAPSHOT'
 ext.conductor_version='0.0.1-SNAPSHOT'
 ext.datastore_version='0.0.0-SNAPSHOT'
 ext.shuttle_java_version='0.0.0-SNAPSHOT'
+ext.loom_api_versio='0.0.0-SNAPSHOT'
 
 /**
  * External versions
