@@ -81,8 +81,36 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }
             }
             publications {
-             mavenJava(MavenPublication) {
-                 from components.java
+               mavenJava(MavenPublication) {
+                pom.withXml {
+                    asNode().children().last() + {
+                        resolveStrategy = Closure.DELEGATE_FIRST
+                        name ext.projectName
+
+                        scm {
+                            url ext.scmUrl
+                            connection ext.connectionUrl
+                            developerConnection ext.developerConnectionUrl
+                        }
+
+                        licenses {
+                            license {
+                                name 'The Apache License, Version 2.0'
+                                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                                distribution 'repo'
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id 'kryptnostic'
+                                name 'Kryptnostic Team'
+                                email 'support@kryptnostic'
+                            }
+                        }
+                    }
+                }
+                from components.java
 	                //artifact ('README.md') {
 	                 //   classifier = 'README'
 	                  //  extension  = 'md'
@@ -92,34 +120,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact sourcesJar
 	                artifact testJar
 
-                    pom.withXml {
-                        asNode().children().last() + {
-                            resolveStrategy = Closure.DELEGATE_FIRST
-                            name ext.projectName
 
-                            scm {
-                                url ext.scmUrl
-                                connection ext.connectionUrl
-                                developerConnection ext.developerConnectionUrl
-                            }
-
-                            licenses {
-                                license {
-                                    name 'The Apache License, Version 2.0'
-                                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                                    distribution 'repo'
-                                }
-                            }
-
-                            developers {
-                                developer {
-                                    id 'kryptnostic'
-                                    name 'Kryptnostic Team'
-                                    email 'support@kryptnostic'
-                                }
-                            }
-                        }
-                    }
                 }              
             }
         }
@@ -143,8 +144,36 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }
             }
             publications {
-             mavenJava(MavenPublication) {
-                 from components.java
+               mavenJava(MavenPublication) {
+                   pom.withXml {
+                    asNode().children().last() + {
+                        resolveStrategy = Closure.DELEGATE_FIRST
+                        name ext.projectName
+
+                        scm {
+                            url ext.scmUrl
+                            connection ext.connectionUrl
+                            developerConnection ext.developerConnectionUrl
+                        }
+
+                        licenses {
+                            license {
+                                name 'The Apache License, Version 2.0'
+                                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                                distribution 'repo'
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id 'kryptnostic'
+                                name 'Kryptnostic Team'
+                                email 'support@kryptnostic'
+                            }
+                        }
+                    }
+                }
+                from components.java
 	                //artifact ('README.md') {
 	                    //classifier = 'README'
 	                    //extension  = 'md'
@@ -153,34 +182,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact javadocJar
 	                artifact sourcesJar
 	                artifact testJar
-                    pom.withXml {
-                        asNode().children().last() + {
-                            resolveStrategy = Closure.DELEGATE_FIRST
-                            name ext.projectName
-
-                            scm {
-                                url ext.scmUrl
-                                connection ext.connectionUrl
-                                developerConnection ext.developerConnectionUrl
-                            }
-
-                            licenses {
-                                license {
-                                    name 'The Apache License, Version 2.0'
-                                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                                    distribution 'repo'
-                                }
-                            }
-
-                            developers {
-                                developer {
-                                    id 'kryptnostic'
-                                    name 'Kryptnostic Team'
-                                    email 'support@kryptnostic'
-                                }
-                            }
-                        }
-                    }
+                 
                 }
             }
         }
