@@ -83,7 +83,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 pom.withXml {
                     asNode().children().last() + {
                         resolveStrategy = Closure.DELEGATE_FIRST
-                        name "${ext.projectName}"
+                        name "${projectName}"
 
                         scm {
                             url ext.scmUrl
