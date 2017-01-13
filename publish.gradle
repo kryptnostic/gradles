@@ -45,6 +45,21 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
     apply plugin: "maven-publish"
     apply plugin: "signing"
 
+    archivesBaseName = ext.projectName
+    
+    ext."signing.keyId" = 'FDEB5A45'
+    ext."signing.secretKeyRingFile" = "$System.env.bamboo_JAR_SIGNING_KEYRING"
+    ext."signing.password" = "$System.env.bamboo_JAR_SIGNING_PASSWORD"
+    
+    configurations {
+        pom
+    }
+
+    signing {
+        sign configurations.archives
+        sign configurations.pom
+    }
+    
     if ( branch.equals("develop") || branch.contains("release/") ) {
         publishing {
             repositories {
@@ -75,10 +90,38 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact sourcesJar
 	                artifact testJar
 	            }
+
+                pom.withXml {
+                    asNode().children().last() + {
+                        resolveStrategy = Closure.DELEGATE_FIRST
+                        name ext.projectName
+                        
+                        scm {
+                            url ext.scmUrl
+                            connection ext.connectionUrl
+                            developerConnection ext.developerConnectionUrl
+                        }
+
+                        licenses {
+                            license {
+                                name 'The Apache License, Version 2.0'
+                                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                                distribution 'repo'
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id 'kryptnostic'
+                                name 'Kryptnostic Team'
+                                email 'support@kryptnostic'
+                            }
+                        }
+                    }
+                }
 	        }
         }
     } else if ( branch.equals("master") ) {
-
         publishing {
             repositories {
                 maven {
@@ -108,6 +151,35 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact sourcesJar
 	                artifact testJar
 	            }
+
+                pom.withXml {
+                    asNode().children().last() + {
+                        resolveStrategy = Closure.DELEGATE_FIRST
+                        name ext.projectName
+                        
+                        scm {
+                            url ext.scmUrl
+                            connection ext.connectionUrl
+                            developerConnection ext.developerConnectionUrl
+                        }
+
+                        licenses {
+                            license {
+                                name 'The Apache License, Version 2.0'
+                                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                                distribution 'repo'
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id 'kryptnostic'
+                                name 'Kryptnostic Team'
+                                email 'support@kryptnostic'
+                            }
+                        }
+                    }
+                }
 	        }
         }
     }
