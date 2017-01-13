@@ -4,6 +4,9 @@ ext.sonatypeMasterUrl = "https://oss.sonatype.org/service/local/staging/deploy/m
 ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapshots"
 
 def branch = System.getenv("bamboo_repository_branch_name")
+def jarname = ext.projectName
+
+println "Basename for jars will be: " + jarname 
 
 if( branch == null || branch == "" ) {
     def stdout = new ByteArrayOutputStream()
@@ -83,7 +86,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 pom.withXml {
                     asNode().children().last() + {
                         resolveStrategy = Closure.DELEGATE_FIRST
-                        name "${projectName}"
+                        name jarname
 
                         scm {
                             url ext.scmUrl
@@ -146,7 +149,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                    pom.withXml {
                     asNode().children().last() + {
                         resolveStrategy = Closure.DELEGATE_FIRST
-                        name "${projectName}"
+                        name jarname
 
                         scm {
                             url ext.scmUrl
