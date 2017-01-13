@@ -5,9 +5,6 @@ ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapsho
 
 def branch = System.getenv("bamboo_repository_branch_name")
 
-println "External properties for publish: " + rootProject.ext.projectName
-println "External properties for publish: " + ext.projectName
-
 if( branch == null || branch == "" ) {
     def stdout = new ByteArrayOutputStream()
     exec {
@@ -86,7 +83,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 pom.withXml {
                     asNode().children().last() + {
                         resolveStrategy = Closure.DELEGATE_FIRST
-                        name ext.projectName
+                        name "${ext.projectName}"
 
                         scm {
                             url ext.scmUrl
@@ -149,7 +146,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                    pom.withXml {
                     asNode().children().last() + {
                         resolveStrategy = Closure.DELEGATE_FIRST
-                        name ext.projectName
+                        name "${projectName}"
 
                         scm {
                             url ext.scmUrl
