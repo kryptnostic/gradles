@@ -123,27 +123,28 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }              
             }
         }
-        } else if ( branch.equals("master") ) {
-            publishing {
-                repositories {
-                    maven {
-                        url sonatypeMasterUrl
-                        credentials {
-                            username = "$System.env.bamboo_SONATYPE_USERNAME"
-                            password = "$System.env.bamboo_SONATYPE_PASSWORD"
-                        }
-                    }
-                    maven { 
-                        url releaseUrl
-                        credentials {
-                            username = "$System.env.bamboo_ARTIFACTORY_USERNAME"
-                            password = "$System.env.bamboo_ARTIFACTORY_PASSWORD"
-                        }
+    } 
+    else if ( branch.equals("master") ) {
+        publishing {
+            repositories {
+                maven {
+                    url sonatypeMasterUrl
+                    credentials {
+                        username = "$System.env.bamboo_SONATYPE_USERNAME"
+                        password = "$System.env.bamboo_SONATYPE_PASSWORD"
                     }
                 }
-                publications {
-                 mavenJava(MavenPublication) {
-                     from components.java
+                maven { 
+                    url releaseUrl
+                    credentials {
+                        username = "$System.env.bamboo_ARTIFACTORY_USERNAME"
+                        password = "$System.env.bamboo_ARTIFACTORY_PASSWORD"
+                    }
+                }
+            }
+            publications {
+             mavenJava(MavenPublication) {
+                 from components.java
 	                //artifact ('README.md') {
 	                    //classifier = 'README'
 	                    //extension  = 'md'
