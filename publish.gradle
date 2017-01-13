@@ -5,6 +5,8 @@ ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapsho
 
 def branch = System.getenv("bamboo_repository_branch_name")
 
+println "External properties for publish: " + ext
+
 if( branch == null || branch == "" ) {
     def stdout = new ByteArrayOutputStream()
     exec {
@@ -31,14 +33,14 @@ task testJar(type: Jar, dependsOn: testClasses) {
 
 configurations {
     tests
-      published.extendsFrom tests, archives
+    published.extendsFrom tests, archives
 }
 
 artifacts {
 	archives sourcesJar
     archives jar
     archives javadocJar
-	tests testJar
+    tests testJar
 }
 
 if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv("bamboo_ARTIFACTORY_PASSWORD")!=null ) ) {
@@ -79,8 +81,8 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }
             }
             publications {
-	            mavenJava(MavenPublication) {
-	                from components.java
+             mavenJava(MavenPublication) {
+                 from components.java
 	                //artifact ('README.md') {
 	                 //   classifier = 'README'
 	                  //  extension  = 'md'
@@ -89,39 +91,40 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact javadocJar
 	                artifact sourcesJar
 	                artifact testJar
-	            }
 
-                pom.withXml {
-                    asNode().children().last() + {
-                        resolveStrategy = Closure.DELEGATE_FIRST
-                        name ext.projectName
-                        
-                        scm {
-                            url ext.scmUrl
-                            connection ext.connectionUrl
-                            developerConnection ext.developerConnectionUrl
-                        }
+                    pom.withXml {
+                        asNode().children().last() + {
+                            resolveStrategy = Closure.DELEGATE_FIRST
+                            name ext.projectName
 
-                        licenses {
-                            license {
-                                name 'The Apache License, Version 2.0'
-                                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                                distribution 'repo'
+                            scm {
+                                url ext.scmUrl
+                                connection ext.connectionUrl
+                                developerConnection ext.developerConnectionUrl
                             }
-                        }
 
-                        developers {
-                            developer {
-                                id 'kryptnostic'
-                                name 'Kryptnostic Team'
-                                email 'support@kryptnostic'
+                            licenses {
+                                license {
+                                    name 'The Apache License, Version 2.0'
+                                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                                    distribution 'repo'
+                                }
+                            }
+
+                            developers {
+                                developer {
+                                    id 'kryptnostic'
+                                    name 'Kryptnostic Team'
+                                    email 'support@kryptnostic'
+                                }
                             }
                         }
                     }
-                }
-	        }
+                }              
+            }
         }
-    } else if ( branch.equals("master") ) {
+    } 
+    else if ( branch.equals("master") ) {
         publishing {
             repositories {
                 maven {
@@ -140,8 +143,8 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                 }
             }
             publications {
-	            mavenJava(MavenPublication) {
-	                from components.java
+             mavenJava(MavenPublication) {
+                 from components.java
 	                //artifact ('README.md') {
 	                    //classifier = 'README'
 	                    //extension  = 'md'
@@ -150,37 +153,36 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
 	                artifact javadocJar
 	                artifact sourcesJar
 	                artifact testJar
-	            }
+                    pom.withXml {
+                        asNode().children().last() + {
+                            resolveStrategy = Closure.DELEGATE_FIRST
+                            name ext.projectName
 
-                pom.withXml {
-                    asNode().children().last() + {
-                        resolveStrategy = Closure.DELEGATE_FIRST
-                        name ext.projectName
-                        
-                        scm {
-                            url ext.scmUrl
-                            connection ext.connectionUrl
-                            developerConnection ext.developerConnectionUrl
-                        }
-
-                        licenses {
-                            license {
-                                name 'The Apache License, Version 2.0'
-                                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                                distribution 'repo'
+                            scm {
+                                url ext.scmUrl
+                                connection ext.connectionUrl
+                                developerConnection ext.developerConnectionUrl
                             }
-                        }
 
-                        developers {
-                            developer {
-                                id 'kryptnostic'
-                                name 'Kryptnostic Team'
-                                email 'support@kryptnostic'
+                            licenses {
+                                license {
+                                    name 'The Apache License, Version 2.0'
+                                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                                    distribution 'repo'
+                                }
+                            }
+
+                            developers {
+                                developer {
+                                    id 'kryptnostic'
+                                    name 'Kryptnostic Team'
+                                    email 'support@kryptnostic'
+                                }
                             }
                         }
                     }
                 }
-	        }
+            }
         }
     }
-}  
+}
