@@ -5,6 +5,8 @@ ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapsho
 
 def branch = System.getenv("bamboo_repository_branch_name")
 
+println "External properties for publish: " + ext
+
 if( branch == null || branch == "" ) {
     def stdout = new ByteArrayOutputStream()
     exec {
