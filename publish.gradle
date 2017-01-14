@@ -4,11 +4,19 @@ ext.sonatypeMasterUrl = "https://oss.sonatype.org/service/local/staging/deploy/m
 ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapshots"
 
 def branch = System.getenv("bamboo_repository_branch_name")
-def jarname = ext.projectName
 
-def scmUrl = ext.scmUrl
-def connectionUrl = ext.connectionUrl
-def developerConnectionUrl = ext.developerConnectionUrl
+
+def jarname = 
+def scmUrl = ""
+def connectionUrl = ""
+def developerConnectionUrl = ""
+
+if( project.hasProperty('projectName')  ) {
+    scmUrl = ext.scmUrl
+    connectionUrl = ext.connectionUrl
+    developerConnectionUrl = ext.developerConnectionUrl
+    jarname = ext.projectName
+}
 
 println "Basename for jars will be: " + jarname 
 
