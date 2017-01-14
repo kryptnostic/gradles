@@ -101,9 +101,9 @@ ext.rhizome_version='2.7.1-SNAPSHOT'
 ext.services_version='5.0.1-SNAPSHOT'
 ext.conductor_version='0.0.1-SNAPSHOT'
 ext.datastore_version='0.0.0-SNAPSHOT'
-ext.shuttle_java_version='0.1.1-SNAPSHOT'
+ext.shuttle_java_version='0.1.3-SNAPSHOT'
 ext.loom_api_version='0.0.1-SNAPSHOT'
-ext.rhizome_client_version='0.0.4-SNAPSHOT'
+ext.rhizome_client_version='0.0.6-SNAPSHOT'
 /**
  * External versions
  **/
