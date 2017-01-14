@@ -16,6 +16,11 @@ if( project.hasProperty('ext.projectName') && project.hasProperty('ext.scmUrl') 
     connectionUrl = ext.connectionUrl
     developerConnectionUrl = ext.developerConnectionUrl
     jarname = ext.projectName
+} else {
+    ext.projectName = project.name
+    ext.scmUrl = "scm:git:https://github.com/kryptnostic/${project.name}.git"
+    ext.connectionUrl = "scm:git:https://github.com/kryptnostic/${project.name}.git"
+    ext.developerConnectionUrl = "scm:git:https://github.com/kryptnostic/${project.name}.git"
 }
 
 println "Basename for jars will be: " + jarname 
