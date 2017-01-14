@@ -11,7 +11,7 @@ def scmUrl = ""
 def connectionUrl = ""
 def developerConnectionUrl = ""
 
-if( project.hasProperty('projectName')  ) {
+if( project.hasProperty('projectName') && project.hasProperty('scmUrl')  ) {
     scmUrl = ext.scmUrl
     connectionUrl = ext.connectionUrl
     developerConnectionUrl = ext.developerConnectionUrl
