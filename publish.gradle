@@ -6,6 +6,10 @@ ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapsho
 def branch = System.getenv("bamboo_repository_branch_name")
 def jarname = ext.projectName
 
+def scmUrl = ext.scmUrl
+def connectionUrl = ext.connectionUrl
+def developerConnectionUrl = ext.developerConnectionUrl
+
 println "Basename for jars will be: " + jarname 
 
 if( branch == null || branch == "" ) {
@@ -89,9 +93,9 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                         name jarname
 
                         scm {
-                            url ext.scmUrl
-                            connection ext.connectionUrl
-                            developerConnection ext.developerConnectionUrl
+                            url scmUrl
+                            connection connectionUrl
+                            developerConnection developerConnectionUrl
                         }
 
                         licenses {
@@ -152,9 +156,9 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                         name jarname
 
                         scm {
-                            url ext.scmUrl
-                            connection ext.connectionUrl
-                            developerConnection ext.developerConnectionUrl
+                            url scmUrl
+                            connection connectionUrl
+                            developerConnection developerConnectionUrl
                         }
 
                         licenses {
