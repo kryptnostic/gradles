@@ -6,7 +6,7 @@ ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapsho
 def branch = System.getenv("bamboo_repository_branch_name")
 
 
-def jarname = 
+def jarname = ""
 def scmUrl = ""
 def connectionUrl = ""
 def developerConnectionUrl = ""
