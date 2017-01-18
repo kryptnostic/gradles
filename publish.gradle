@@ -80,7 +80,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
         sign configurations.pom
     }
     
-    if ( branch.equals("develop") || branch.contains("release/") ) {
+    if ( branch == "develop" || branch.startsWith("release/") ) {
         publishing {
             repositories {
                 maven {

@@ -40,11 +40,11 @@ repositories {
     url "http://repository.apache.org/snapshots/"
   }
 
+
   // Hit mavencentral
   mavenCentral()
 
-  //Hit the rethink driver 
   maven {
-    url 'https://raw.github.com/dkhenry/rethinkjava/mvn-repo'
+    url "http://conjars.org/repo/"
   }
 }
