@@ -43,7 +43,7 @@ repositories {
 
   // Hit mavencentral
   mavenCentral()
-
+  // For cascading hadoop jar
   maven {
     url "http://conjars.org/repo/"
   }
