@@ -5,7 +5,7 @@ ext.releaseUrl = "http://artifactory.krypt.int/artifactory/libs-release-local"
 ext.sonatypeMasterUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
 ext.sonatypeSnapshotUrl = "https://oss.sonatype.org/content/repositories/snapshots"
 
-def branch = System.getenv("bamboo_repository_branchName")
+def branch ="$System.env.bamboo_planRepository_branchName"
 
 def jarname = ""
 def scmUrl = ""
