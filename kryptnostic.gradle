@@ -45,7 +45,8 @@ apply from: "https://raw.githubusercontent.com/kryptnostic/gradles/master/publis
 task wrapper(type: Wrapper) {
   gradleVersion = '3.3'
 }
-
+//Run jacoco after tests.
+test { finalizedBy jacocoTestReport }
 /*
  * Allow maintaing shared client git hooks in the repository. At some point should consider making task
  * or making it depend on eclipse  so it doesn't run everytime you run gradle
