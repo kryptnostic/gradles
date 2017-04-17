@@ -5,9 +5,9 @@ repositories {
   // Hit the local maven repo
   mavenLocal()
 
-  //Hit our internal stuff
+  // Hit all the public stuff
   maven {
-    url 'http://artifactory.krypt.int/artifactory/libs-snapshot/'
+    url 'http://artifactory.krypt.int/artifactory/remote-repos/'
   }
 
   //Hit our release stuff
@@ -15,9 +15,9 @@ repositories {
     url 'http://artifactory.krypt.int/artifactory/libs-release-local/'
   }
 
-  // Hit all the public stuff
+  //Hit our internal stuff
   maven {
-    url 'http://artifactory.krypt.int/artifactory/remote-repos/'
+    url 'http://artifactory.krypt.int/artifactory/libs-snapshot/'
   }
 
   // Hit sonatype snapshots
