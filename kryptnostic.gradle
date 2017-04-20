@@ -82,13 +82,13 @@ configurations.all {
  * Kryptnostic versions
  **/
 ext.billing_version='0.1.0-SNAPSHOT'
-ext.conductor_client_version='0.0.4-SNAPSHOT'
+ext.conductor_client_version='0.0.5-SNAPSHOT'
 ext.fhe_core_version='0.1.2-SNAPSHOT'
 ext.heracles_version='4.0.0-SNAPSHOT'
 ext.hz_server_version='0.1.0-SNAPSHOT'
 ext.iris_version='5.0.0-SNAPSHOT'
 ext.k_annotations_version='0.0.0-SNAPSHOT'
-ext.kindling_version='0.0.0-SNAPSHOT'
+ext.kindling_version='0.0.1-SNAPSHOT'
 ext.parasol_version='0.0.0-SNAPSHOT'
 ext.datastore_version='0.0.0-SNAPSHOT'
 ext.kodex_version='6.2.1-SNAPSHOT'
@@ -105,7 +105,7 @@ ext.services_version='5.0.1-SNAPSHOT'
 ext.conductor_version='0.0.1-SNAPSHOT'
 ext.datastore_version='0.0.0-SNAPSHOT'
 ext.shuttle_java_version='0.1.3-SNAPSHOT'
-ext.loom_api_version='0.0.3-SNAPSHOT'
+ext.loom_api_version='0.0.4-SNAPSHOT'
 ext.rhizome_client_version='0.0.7-SNAPSHOT'
 ext.courier_version='0.0.1-SNAPSHOT';
 ext.scribe_version='0.0.1-SNAPSHOT';
