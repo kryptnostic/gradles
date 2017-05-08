@@ -127,7 +127,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                             developer {
                                 id 'kryptnostic'
                                 name 'Kryptnostic Team'
-                                email 'support@kryptnostic'
+                                email 'support@kryptnostic.com'
                             }
                         }
                     }
@@ -190,7 +190,7 @@ if ( ( System.getenv("bamboo_ARTIFACTORY_USERNAME") != null)  && ( System.getenv
                             developer {
                                 id 'kryptnostic'
                                 name 'Kryptnostic Team'
-                                email 'support@kryptnostic'
+                                email 'support@kryptnostic.com'
                             }
                         }
                     }
